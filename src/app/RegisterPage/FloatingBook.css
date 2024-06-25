@@ -1,0 +1,47 @@
+.container {
+    position: relative;
+    width: 500px;
+    height: 300px;
+  }
+  
+  .floating-book {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    50% {
+      transform: translate(-50%, -50%) rotate(5deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+  }
+  
+  .scientist {
+    position: absolute;
+    bottom: 20px;
+  }
+  
+  .move-right {
+    animation: moveRight 1s ease-in-out infinite alternate;
+  }
+  
+  .move-left {
+    animation: moveLeft 1s ease-in-out infinite alternate;
+  }
+  
+  @keyframes moveRight {
+    from { transform: translateX(0); }
+    to { transform: translateX(20px); }
+  }
+  
+  @keyframes moveLeft {
+    from { transform: translateX(
+  
