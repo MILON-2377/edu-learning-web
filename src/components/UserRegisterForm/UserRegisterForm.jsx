@@ -3,9 +3,12 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
+import { IoEye } from "react-icons/io5";
+import { IoMdEyeOff } from "react-icons/io";
 
 export default function UserRegisterForm({ userData, userDataDi }) {
   const [isVisible, setIsVisible] = useState(false);
+  const [isPassShow, setIsPassShow] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -87,10 +90,10 @@ export default function UserRegisterForm({ userData, userDataDi }) {
                 </p>
               )}
             </label>
-            <label className="flex flex-col gap-1 w-full">
+            <label className="flex flex-col relative gap-1 w-full">
               <span className="text-white">Pasword</span>
               <input
-                type="password"
+                type={isPassShow ? "text" : "password"}
                 placeholder="Password"
                 {...register("password", {
                   required: "Password is required",
@@ -103,6 +106,9 @@ export default function UserRegisterForm({ userData, userDataDi }) {
                 })}
                 className="input focus:outline-none bg-gray-100 w-full "
               />
+              <span onClick={() => setIsPassShow(!isPassShow)} className="absolute cursor-pointer top-[44px] right-2 text-xl ">
+              {isPassShow ? <IoEye  /> : <IoMdEyeOff />}
+              </span>
               {errors.password && (
                 <p className="text-yellow-500 ">
                   {errors.password.message}
@@ -112,7 +118,7 @@ export default function UserRegisterForm({ userData, userDataDi }) {
             <label className="flex flex-col gap-1 w-full">
               <span className="text-white">Confirm password</span>
               <input
-                type="password"
+                type={isPassShow ? "text" : "password"}
                 placeholder="Confirm password"
                 {...register("password", {
                   required: "Password is required",
