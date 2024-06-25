@@ -32,13 +32,13 @@ export default function Register() {
       <div
         className={
           loadNextForm
-            ? "lg:w-[70%] sm:w-[650px] lg:ml-7  mt-[30%] sm:mt-0 mr-6 flex items-center bg-gradient-to-r from-sky-500 to-indigo-500 justify-center sm:rounded-full w-full h-[60%] sm:h-[580px] lg:h-[500px] border border-white  "
+            ? "lg:w-[70%] sm:w-[650px] lg:ml-7 px-2 sm:px-0   sm:mt-0 sm:mr-6 flex items-center bg-gradient-to-r from-sky-500 to-indigo-500 justify-center sm:rounded-3xl lg:rounded-full max-w-[95%] max-h-[85%] sm:h-[650px] sm:max-h-[80vh] lg:h-[580px] border border-white  "
             : "lg:w-[650px] sm:w-[650px]  mt-[30%] sm:mt-0 mr-6 bg-[url('https://i.ibb.co/qYM2fKz/Gemini-Generated-Image-sikc52sikc52sikc.jpg')] bg-cover bg-center lg:border bg-no-repeat lg:bg-none flex items-center justify-center sm:rounded-full w-full h-[60%] sm:h-[580px] lg:h-[400px] border-white  "
         }
       >
         {loadNextForm ? (
           <div className=" w-[70%] ">
-            <UserRegisterForm></UserRegisterForm>
+            <UserRegisterForm userDataDi={userRegisterData} userData={setUserRegisterData}></UserRegisterForm>
           </div>
         ) : (
           <form onSubmit={handleFormSubmit}>

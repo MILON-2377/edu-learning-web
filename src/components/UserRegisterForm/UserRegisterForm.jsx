@@ -1,7 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-export default function UserRegisterForm() {
+import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
+
+export default function UserRegisterForm({ userData, userDataDi }) {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -21,8 +24,29 @@ export default function UserRegisterForm() {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { delay: 0.3 } },
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  useEffect(() => {
+    
+    console.log(errors);
+  }, [errors]);
+
   return (
-    <div className="welcome-section h-full w-full">
+    <div className="welcome-section py-3 h-full w-full">
+      <div className="sm:p-4">
+        <h2 className=" lg:text-3xl text-xl text-white font-bold">
+          Join Our Learning Community Register Today!
+        </h2>
+      </div>
       <motion.div
         variants={welcomeVariants}
         initial="hidden"
@@ -30,13 +54,17 @@ export default function UserRegisterForm() {
         className="lg:w-full lg:px-6  lg:h-full lg:rounded-3xl"
       >
         <div className=" w-full flex items-center justify-center ">
-          <form className="w-full">
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
             <label className="flex flex-col gap-1 w-full">
               <span className="text-white">Name</span>
               <input
                 type="text"
                 placeholder="Name"
-                className="input focus:outline-none bg-gray-300 w-full "
+                {...register("Name", {
+                  required: true,
+                  message: "Name field is required!",
+                })}
+                className="input focus:outline-none bg-gray-100 w-full "
               />
             </label>
             <label className="flex flex-col gap-1 w-full">
@@ -44,23 +72,58 @@ export default function UserRegisterForm() {
               <input
                 type="email"
                 placeholder="Email"
-                className="input focus:outline-none bg-gray-300 w-full "
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Invalid email address",
+                  },
+                })}
+                className="input focus:outline-none bg-gray-100 w-full "
               />
+              {errors.email && (
+                <p className="text-red-500 overflow-x-scroll ">
+                  {errors.email.message}
+                </p>
+              )}
             </label>
             <label className="flex flex-col gap-1 w-full">
               <span className="text-white">Pasword</span>
               <input
                 type="password"
                 placeholder="Password"
-                className="input focus:outline-none bg-gray-300 w-full "
+                {...register("password", {
+                  required: "Password is required",
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    message:
+                      "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character",
+                  },
+                })}
+                className="input focus:outline-none bg-gray-100 w-full "
               />
+              {errors.password && (
+                <p className="text-yellow-500 ">
+                  {errors.password.message}
+                </p>
+              )}
             </label>
             <label className="flex flex-col gap-1 w-full">
               <span className="text-white">Confirm password</span>
               <input
                 type="password"
                 placeholder="Confirm password"
-                className="input focus:outline-none bg-gray-300 w-full "
+                {...register("password", {
+                  required: "Password is required",
+                  pattern: {
+                    value:
+                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    message:
+                      "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character",
+                  },
+                })}
+                className="input focus:outline-none bg-gray-100 w-full "
               />
             </label>
             <button className="px-3 transition-all text-xl font-semibold duration-500  hover:bg-fuchsia-500 mt-9 py-2  border border-white text-white rounded-3xl w-full ">
@@ -74,6 +137,9 @@ export default function UserRegisterForm() {
           className="text-4xl w-full  lg:block hidden text-white"
         ></motion.h2>
       </motion.div>
+
+      {/* validation errors displaying through toastify */}
+      <ToastContainer />
     </div>
   );
 }
