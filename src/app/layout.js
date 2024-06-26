@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
+import Navber from "@/components/Navber/Navber";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,8 +13,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div>
-          <Link href="/About">about</Link>
+        <div className="h-[80vh] bg-[url('https://i.ibb.co/MGHRbV8/Gemini-Generated-Image-a8rhrqa8rhrqa8rh.jpg')] bg-cover bg-center bg-no-repeat bg-slate-400 w-full ">
+          <Navber></Navber>
         </div>
         <div className="h-screen">{children}</div>
       </body>
