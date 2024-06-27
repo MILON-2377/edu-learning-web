@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import useBannerImages from "../Hooks/BannerImages/useBannerImages";
 import Navber from "../Navber/Navber";
+import { usePathname } from "next/navigation";
 
 export default function Banner() {
+  const path = usePathname();
   const images = useBannerImages();
   const [imgIndex, setImgIndex] = useState(0);
 
@@ -21,10 +23,10 @@ export default function Banner() {
   return (
     <div
       style={{ backgroundImage: `url('${images[imgIndex]}')` }}
-      className=" sm:h-[80vh] flex flex-col w-full bg-cover bg-center bg-no-repeat "
+      className={ path === '/' || path === '/Home' ? " sm:h-[80vh] flex flex-col w-full bg-cover bg-center bg-no-repeat " : "h-20 w-full "}
     >
       <Navber></Navber>
-      <div className=" flex-1  flex flex-col gap-5 px-6 items-center justify-center ">
+      <div className={ path === '/' || path === '/Home' ? " flex-1  flex flex-col gap-5 px-6 items-center justify-center " : "hidden" }>
         <h1 className=" text-4xl font-bold text-white ">EduConnect: Empowering Learning, Everywhere</h1>
         <p className="text-xl font-semibold text-gray-100 ">Unlock Your Potential with EduConnect's Learning Management
 System.
