@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 export default function Navber({ href }) {
   const router = usePathname();
 
+  const role = "user";
+
   useEffect(() => {
     // console.log(router);
   }, []);
@@ -36,6 +38,30 @@ export default function Navber({ href }) {
     },
   ];
 
+  // user navliks
+  const studentsUser = [
+    {
+      title: "Home",
+      path: "/",
+    },
+    {
+      title: "Course",
+      path: "/Course",
+    },
+    {
+      title: "Learning",
+      path: "/Learning",
+    },
+    {
+      title: "Community",
+      path: "/Community",
+    },
+    {
+      title: "Support",
+      path: "/Support",
+    },
+  ];
+
   return (
     <div className="navbar bg-slate-950 bg-opacity-40 text-white ">
       <div className="navbar-start">
@@ -55,7 +81,7 @@ export default function Navber({ href }) {
                 className="drawer-overlay"
               ></label>
               <ul className="menu flex flex-col gap-1 bg-base-200 text-base-content min-h-full w-80 p-4">
-                {navLinks.map((item, index) => (
+                { navLinks.map((item, index) => (
                   <Link
                     href={item.path}
                     key={index}
@@ -123,7 +149,7 @@ export default function Navber({ href }) {
         </div>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <a href="/LogIn" className=" px-3 py-2 border border-white rounded-md hover:bg-blue-800 duration-300 ">Log In</a>
       </div>
     </div>
   );

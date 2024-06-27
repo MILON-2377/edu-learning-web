@@ -5,10 +5,15 @@ import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import { IoEye } from "react-icons/io5";
 import { IoMdEyeOff } from "react-icons/io";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import auth from "../../Firebase.Config/firebase.config";
+import usePublicAxios from "../Hooks/Apis/PublicApi/usePublicAxios";
+import Swal from "sweetalert2";
 
-export default function UserRegisterForm({ userData, userDataDi }) {
+export default function UserRegisterForm({ userData, userDataDi, profession }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isPassShow, setIsPassShow] = useState(false);
+  const publicAxios = usePublicAxios();
 
   useEffect(() => {
     setIsVisible(true);
@@ -31,16 +36,41 @@ export default function UserRegisterForm({ userData, userDataDi }) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = ({ email, password, Name }) => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async () => {
+        try {
+          const res = await publicAxios.post("/users", {
+            Name,
+            email,
+            role: profession,
+            isAdmin:false,
+          });
+          if(res.data.insertedId){
+            Swal.fire({
+              title: "Sign Up Success!",
+              text: "Welcome to Amplify!",
+              icon: "success"
+            });
+            reset();
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    console.log(profession);
   };
 
   useEffect(() => {
-    
-    console.log(errors);
+    // console.log(errors);
   }, [errors]);
 
   return (
@@ -106,13 +136,14 @@ export default function UserRegisterForm({ userData, userDataDi }) {
                 })}
                 className="input focus:outline-none bg-gray-100 w-full "
               />
-              <span onClick={() => setIsPassShow(!isPassShow)} className="absolute cursor-pointer top-[44px] right-2 text-xl ">
-              {isPassShow ? <IoEye  /> : <IoMdEyeOff />}
+              <span
+                onClick={() => setIsPassShow(!isPassShow)}
+                className="absolute cursor-pointer top-[44px] right-2 text-xl "
+              >
+                {isPassShow ? <IoEye /> : <IoMdEyeOff />}
               </span>
               {errors.password && (
-                <p className="text-yellow-500 ">
-                  {errors.password.message}
-                </p>
+                <p className="text-yellow-500 ">{errors.password.message}</p>
               )}
             </label>
             <label className="flex flex-col gap-1 w-full">

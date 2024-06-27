@@ -5,13 +5,19 @@ import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 
-export default function LogIn() {
 
-  const {register, handleSubmit, formState:{errors}} = useForm();
+
+export default function LogIn() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
-  }
+  };
+
 
   return (
     <div className="flex bg-[url('https://i.ibb.co/R7MRKMn/Gemini-Generated-Image-d4ottmd4ottmd4ot.jpg')] bg-cover lg:bg-none bg-center bg-no-repeat h-screen sm:h-full w-full mx-auto px-5  gap-5 justify-between ">
@@ -20,10 +26,17 @@ export default function LogIn() {
         {/* login page logo and title section */}
         <div className="flex flex-col gap-6 items-center justify-center">
           <div className="h-24 w-h-24 rounded-full">
-            <img src="https://i.ibb.co/bRT22kw/Gemini-Generated-Image-j4vzpnj4vzpnj4vz.jpg" className="w-full rounded-full h-full object-cover" />
+            <img
+              src="https://i.ibb.co/bRT22kw/Gemini-Generated-Image-j4vzpnj4vzpnj4vz.jpg"
+              className="w-full rounded-full h-full object-cover"
+            />
           </div>
-          <h1 className="text-4xl font-bold text-white lg:text-black ">Welcome Back!</h1>
-          <p className="text-gray-400 text-xl mb-5 ">Please enter your details</p>
+          <h1 className="text-4xl font-bold text-white lg:text-black ">
+            Welcome Back!
+          </h1>
+          <p className="text-gray-400 text-xl mb-5 ">
+            Please enter your details
+          </p>
         </div>
 
         {/* social media login section */}
@@ -45,32 +58,46 @@ export default function LogIn() {
           <div className="divider  mb-5 ">or</div>
 
           {/* input fields section */}
-          <form onSubmit={handleSubmit(onSubmit)} className="">
+          <form onSubmit={handleSubmit(onSubmit)} className="mb-4">
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-white lg:text-gray-700 ">Email Address</span>
+                <span className="label-text text-white lg:text-gray-700 ">
+                  Email Address
+                </span>
               </label>
               <input
                 type="email"
                 placeholder="email"
-                {...register("Email",{required:true, message:"email field is required!"})}
+                {...register("Email", {
+                  required: true,
+                  message: "email field is required!",
+                })}
                 className="input focus:outline-none border border-yellow-500 input-bordered"
                 required
               />
-               {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+              {errors.email && (
+                <p className="text-red-500">{errors.email.message}</p>
+              )}
             </div>
             <div className="form-control">
               <label className="label">
-                <span className="label-text text-white lg:text-gray-700 ">Password</span>
+                <span className="label-text text-white lg:text-gray-700 ">
+                  Password
+                </span>
               </label>
               <input
                 type="password"
-                {...register("password", {required:true, message:"password field is required"})}
+                {...register("password", {
+                  required: true,
+                  message: "password field is required",
+                })}
                 placeholder="Password"
                 className="input focus:outline-none border border-yellow-500 input-bordered"
                 required
               />
-               {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+              {errors.password && (
+                <p className="text-red-500">{errors.password.message}</p>
+              )}
             </div>
             <div className="flex items-center mt-5 justify-between ">
               <div
@@ -78,7 +105,9 @@ export default function LogIn() {
              gap-1"
               >
                 <input type="checkbox" />
-                <span className="lg:text-black text-white font-semibold  ">Remember me</span>
+                <span className="lg:text-black text-white font-semibold  ">
+                  Remember me
+                </span>
               </div>
               <p className="lg:text-black text-white underline font-semibold ">
                 Forgot Password
@@ -90,6 +119,10 @@ export default function LogIn() {
             </button>
           </form>
         </div>
+        <a href="/RegisterPage" className=" text-white px-4 ">
+          Do not have an account?{""}
+          <span className=" text-blue-800 ml-2 underline">click here</span>{" "}
+        </a>
       </div>
 
       {/* login images section */}

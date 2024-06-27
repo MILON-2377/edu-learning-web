@@ -16,16 +16,22 @@ export default function Register() {
     }
   };
 
+  
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setLoadNextForm(true);
     const form = e.target;
-
-    console.log("hello");
   };
 
   return (
-    <div className={ loadNextForm ? " lg:h-screen flex items-center justify-center h-screen lg:px-8 bg-[url('https://i.ibb.co/qYM2fKz/Gemini-Generated-Image-sikc52sikc52sikc.jpg')] bg-cover bg-center bg-no-repeat " : "h-screen lg:flex-row lg:justify-between w-full px-2 sm:flex sm:items-center sm:px-7 sm:py-6 gap-6 bg-gradient-to-r from-violet-500 to-fuchsia-500 sm:justify-center  bg-cover bg-center bg-no-repeat "}>
+    <div
+      className={
+        loadNextForm
+          ? " lg:h-screen flex items-center justify-center h-screen lg:px-8 bg-[url('https://i.ibb.co/qYM2fKz/Gemini-Generated-Image-sikc52sikc52sikc.jpg')] bg-cover bg-center bg-no-repeat "
+          : "h-screen lg:flex-row lg:justify-between w-full px-2 sm:flex sm:items-center sm:px-7 sm:py-6 gap-6 bg-gradient-to-r from-violet-500 to-fuchsia-500 sm:justify-center  bg-cover bg-center bg-no-repeat "
+      }
+    >
       <div className={loadNextForm ? "hidden" : "lg:w-[50%]"}>
         <RegistationCompo></RegistationCompo>
       </div>
@@ -38,7 +44,11 @@ export default function Register() {
       >
         {loadNextForm ? (
           <div className=" w-[70%] ">
-            <UserRegisterForm userDataDi={userRegisterData} userData={setUserRegisterData}></UserRegisterForm>
+            <UserRegisterForm
+              userDataDi={userRegisterData}
+              userData={setUserRegisterData}
+              profession ={isProfessionSelect}
+            ></UserRegisterForm>
           </div>
         ) : (
           <form onSubmit={handleFormSubmit}>
