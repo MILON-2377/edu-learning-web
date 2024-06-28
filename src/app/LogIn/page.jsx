@@ -24,7 +24,7 @@ export default function LogIn() {
       {/* login form section */}
       <div className=" w-full md:w-[70vw] lg:w-[40vw] px-6 ">
         {/* login page logo and title section */}
-        <div className="flex flex-col gap-6 items-center justify-center">
+        <div className="flex flex-col mt-4 gap-4 items-center justify-center">
           <div className="h-24 w-h-24 rounded-full">
             <img
               src="https://i.ibb.co/bRT22kw/Gemini-Generated-Image-j4vzpnj4vzpnj4vz.jpg"
@@ -34,7 +34,7 @@ export default function LogIn() {
           <h1 className="text-4xl font-bold text-white lg:text-black ">
             Welcome Back!
           </h1>
-          <p className="text-gray-400 text-xl mb-5 ">
+          <p className="text-gray-400 text-xl ">
             Please enter your details
           </p>
         </div>
@@ -42,20 +42,20 @@ export default function LogIn() {
         {/* social media login section */}
         <div>
           {/* login wiht google */}
-          <div className="w-full grid grid-cols-3 gap-5 ">
-            <button className="items-center border border-white bg-black bg-opacity-50 lg:opacity-0 lg:border-gray-400 px-3 py-2 rounded-md justify-center flex ">
+          <div className="w-full grid grid-cols-3 gap-5 mb-6 mt-4 ">
+            <button className="items-center border border-white bg-black bg-opacity-50 lg:bg-opacity-0 lg:border-gray-400 px-3 py-2 rounded-md justify-center flex ">
               <FaGoogle className="text-4xl  text-blue-500 " />
             </button>
-            <button className="items-center border border-white bg-black bg-opacity-50 lg:opacity-0 lg:border-gray-400 px-3 py-2 rounded-md justify-center flex ">
+            <button className="items-center border border-white bg-black bg-opacity-50 lg:bg-opacity-0 lg:border-gray-400 px-3 py-2 rounded-md justify-center flex ">
               <FaFacebook className="text-4xl text-blue-500 " />
             </button>
-            <button className="items-center border border-white bg-black bg-opacity-50 lg:opacity-0 lg:border-gray-400 px-3 py-2 rounded-md justify-center flex ">
+            <button className="items-center border border-white bg-black bg-opacity-50 lg:bg-opacity-0 lg:border-gray-400 px-3 py-2 rounded-md justify-center flex ">
               <FaTwitter className="text-4xl text-blue-500 " />
             </button>
           </div>
 
           {/* divider */}
-          <div className="divider  mb-5 ">or</div>
+          <div className="divider mb-4 ">or</div>
 
           {/* input fields section */}
           <form onSubmit={handleSubmit(onSubmit)} className="mb-4">
@@ -119,7 +119,7 @@ export default function LogIn() {
             </button>
           </form>
         </div>
-        <a href="/RegisterPage" className=" text-white px-4 ">
+        <a href="/RegisterPage" className=" text-white lg:text-black px-4 ">
           Do not have an account?{""}
           <span className=" text-blue-800 ml-2 underline">click here</span>{" "}
         </a>

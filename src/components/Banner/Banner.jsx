@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import useBannerImages from "../Hooks/BannerImages/useBannerImages";
 import Navber from "../Navber/Navber";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function Banner() {
   const path = usePathname();
   const images = useBannerImages();
   const [imgIndex, setImgIndex] = useState(0);
+
+  const authData = useSelector((state) => state.authData);
 
   useEffect(() => {
     const interval = setInterval(() => {

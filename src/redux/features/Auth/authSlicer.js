@@ -4,23 +4,19 @@ const { createSlice } = require("@reduxjs/toolkit")
 
 
 const initialState = {
-    value:{
-        userName: "",
-        Role: "",
-        photo: "",
-    }
+    authData: null,
 }
 
-const authSlice = createSlice({
+export const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        // registe user with and password
-        userRegister: (state, action) => {
-
+        // userData
+        userData: (state, action) => {
+            state.authData = action.payload;
         }
     }
 });
 
-export const {userRegister} = authSlice.actions;
+export const {userData} = authSlice.actions;
 export default authSlice.reducer;

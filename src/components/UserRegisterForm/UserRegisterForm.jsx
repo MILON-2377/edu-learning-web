@@ -9,11 +9,13 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../Firebase.Config/firebase.config";
 import usePublicAxios from "../Hooks/Apis/PublicApi/usePublicAxios";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 export default function UserRegisterForm({ userData, userDataDi, profession }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isPassShow, setIsPassShow] = useState(false);
   const publicAxios = usePublicAxios();
+  const router = useRouter();
 
   useEffect(() => {
     setIsVisible(true);
@@ -51,11 +53,13 @@ export default function UserRegisterForm({ userData, userDataDi, profession }) {
             isAdmin:false,
           });
           if(res.data.insertedId){
+            router.push("/");
             Swal.fire({
               title: "Sign Up Success!",
               text: "Welcome to Amplify!",
               icon: "success"
             });
+
             reset();
           }
         } catch (error) {
