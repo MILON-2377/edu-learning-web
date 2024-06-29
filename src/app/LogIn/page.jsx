@@ -1,4 +1,6 @@
 "use client";
+import { useAuth } from "@/AuthProvider/AuthProviderContext";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { FaGoogle } from "react-icons/fa";
@@ -8,14 +10,25 @@ import { FaTwitter } from "react-icons/fa";
 
 
 export default function LogIn() {
+  const {userLogIn} = useAuth();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  // Mkjdk@er41Jsk
+
+  const onSubmit = async({Email, password}) => {
+    try {
+      const res = await userLogIn(Email, password);
+      if(res){
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
 

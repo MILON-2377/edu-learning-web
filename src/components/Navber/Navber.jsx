@@ -19,7 +19,7 @@ export default function Navber({ href }) {
     if (user?.email) {
       refetch();
     }
-    console.log(data);
+    // console.log(data);
   }, [user, data]);
 
   // nablinks for guest user
@@ -318,7 +318,7 @@ export default function Navber({ href }) {
                 <li>
                   <a className=" px-2 py-1 border border-white rounded-md hover:bg-blue-800 duration-300 ">Settings</a>
                 </li>
-                <li>
+                <li onClick={() => logOutHandle()}>
                   <a className=" px-2 py-1 border border-white rounded-md hover:bg-blue-800 duration-300 ">Logout</a>
                 </li>
               </ul>
