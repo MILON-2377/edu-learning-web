@@ -1,18 +1,19 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
 import { IoEye } from "react-icons/io5";
 import { IoMdEyeOff } from "react-icons/io";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import auth from "../../Firebase.Config/firebase.config";
 import usePublicAxios from "../Hooks/Apis/PublicApi/usePublicAxios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/AuthProvider/AuthProviderContext";
 
 export default function UserRegisterForm({ userData, userDataDi, profession }) {
   const [isVisible, setIsVisible] = useState(false);
+  const { userRegistation } = useAuth();
   const [isPassShow, setIsPassShow] = useState(false);
   const publicAxios = usePublicAxios();
   const router = useRouter();
@@ -43,21 +44,21 @@ export default function UserRegisterForm({ userData, userDataDi, profession }) {
   } = useForm();
 
   const onSubmit = ({ email, password, Name }) => {
-    createUserWithEmailAndPassword(auth, email, password)
+    userRegistation(email, password)
       .then(async () => {
         try {
           const res = await publicAxios.post("/users", {
             Name,
             email,
             role: profession,
-            isAdmin:false,
+            isAdmin: false,
           });
-          if(res.data.insertedId){
+          if (res.data.insertedId) {
             router.push("/");
             Swal.fire({
               title: "Sign Up Success!",
               text: "Welcome to Amplify!",
-              icon: "success"
+              icon: "success",
             });
 
             reset();
@@ -69,13 +70,7 @@ export default function UserRegisterForm({ userData, userDataDi, profession }) {
       .catch((error) => {
         console.log(error);
       });
-
-    console.log(profession);
   };
-
-  useEffect(() => {
-    // console.log(errors);
-  }, [errors]);
 
   return (
     <div className="welcome-section py-3 h-full w-full">

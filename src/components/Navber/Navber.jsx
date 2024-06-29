@@ -4,18 +4,23 @@ import Link from "next/link";
 import { IoMenu } from "react-icons/io5";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { useSelector } from "react-redux";
-import auth from "@/Firebase.Config/firebase.config";
 import Custom500 from "@/Pages/CustomError/Custom500";
 import LoadinSpinner from "@/Pages/CustomLoading/LoadinSpinner";
 import useUserDataLoader from "../DataLoaderApi/UserDataLoaderApi/useUserDataLoader";
+import { useAuth } from "@/AuthProvider/AuthProviderContext";
 
 export default function Navber({ href }) {
   const router = usePathname();
+  const { user, logOutHandle } = useAuth();
 
-  // console.log(authData);
+  const { data, refetch, error, isLoading } = useUserDataLoader(user?.email);
 
-  const role = "user";
+  useEffect(() => {
+    if (user?.email) {
+      refetch();
+    }
+    console.log(data);
+  }, [user, data]);
 
   // nablinks for guest user
   const navLinks = [
@@ -85,18 +90,6 @@ export default function Navber({ href }) {
     },
   ];
 
-  const authData = useSelector((state) => state?.authReducer?.authData);
-  const { data, refetch, error, isLoading } = useUserDataLoader(
-    authData?.email
-  );
-
-  useEffect(() => {
-    if (authData?.email) {
-      refetch();
-    }
-    // console.log(data);
-  }, [authData, data]);
-
   if (isLoading) return <LoadinSpinner />;
   if (error) return <Custom500 />;
 
@@ -119,7 +112,7 @@ export default function Navber({ href }) {
                 className="drawer-overlay"
               ></label>
               <ul className="menu flex flex-col gap-1 bg-base-200 text-base-content min-h-full w-80 p-4">
-                {authData
+                {user
                   ? (data.role === "Teacher" && (
                       <>
                         {teachersNavlinks.map((item, index) => (
@@ -171,14 +164,15 @@ export default function Navber({ href }) {
             </div>
           </div>
         </div>
-        <a className="btn hidden lg:block btn-ghost text-xl">Amplify</a>
+        <a className="hidden lg:block ml-5 text-2xl">Amplify</a>
       </div>
-      <a className="btn lg:hidden btn-ghost text-xl">Amplify</a>
+
+      <a className="btn lg:hidden btn-ghost text-center text-xl">Amplify</a>
 
       <div className="navbar-center hidden lg:flex gap-5 ">
         {/* navbar titles section */}
         <div className="flex items-center gap-1">
-          {authData
+          {user
             ? (data?.role === "Teacher" && (
                 <>
                   {teachersNavlinks.slice(0, 3).map((item, index) => (
@@ -240,7 +234,7 @@ export default function Navber({ href }) {
         <div>
           {/* without Login user titles */}
           <div className="flex items-center gap-1">
-            {authData
+            {user
               ? (data?.role === "Teacher" && (
                   <>
                     {teachersNavlinks
@@ -296,12 +290,50 @@ export default function Navber({ href }) {
         </div>
       </div>
       <div className="navbar-end">
-        <a
-          href="/LogIn"
-          className=" px-3 py-2 border border-white rounded-md hover:bg-blue-800 duration-300 "
-        >
-          Log In
-        </a>
+        {user ? (
+          <>
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="w-16 h-16 rounded-full"
+              >
+                <div className="w-full h-full rounded-full">
+                  <img
+                    className="h-full w-full rounded-full object-cover"
+                    src={user?.photoURL}
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex={0}
+                className="menu menu-sm flex flex-col gap-1 p-4 dropdown-content bg-slate-400 rounded-box z-[1] mt-3 w-[230px] lg:w-[260px]  shadow"
+              >
+                <li>
+                  <a className=" px-2 py-1 border border-white rounded-md hover:bg-blue-800 duration-300 ">
+                    Profile
+                    
+                  </a>
+                </li>
+                <li>
+                  <a className=" px-2 py-1 border border-white rounded-md hover:bg-blue-800 duration-300 ">Settings</a>
+                </li>
+                <li>
+                  <a className=" px-2 py-1 border border-white rounded-md hover:bg-blue-800 duration-300 ">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </>
+        ) : (
+          <>
+            <a
+              href="/LogIn"
+              className=" px-3 py-2 border border-white rounded-md hover:bg-blue-800 duration-300 "
+            >
+              Log In
+            </a>
+          </>
+        )}
       </div>
     </div>
   );
