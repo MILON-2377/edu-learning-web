@@ -1,7 +1,6 @@
 "use client";
 
-import useUserDataLoader from "@/components/DataLoaderApi/UserDataLoaderApi/useUserDataLoader";
-import auth from "../Firebase.Config/firebase.config";
+
 import BenefitsSection from "@/components/HomePage/BenefitsSection";
 import BlogPostsSection from "@/components/HomePage/BlogPostsSection";
 import CTASecton from "@/components/HomePage/CtASection";

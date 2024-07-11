@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { IoMenu } from "react-icons/io5";
-import { useEffect } from "react";
+
 import { usePathname } from "next/navigation";
 import Custom500 from "@/Pages/CustomError/Custom500";
 import LoadinSpinner from "@/Pages/CustomLoading/LoadinSpinner";
-import useUserDataLoader from "../DataLoaderApi/UserDataLoaderApi/useUserDataLoader";
+
 import { useAuth } from "@/AuthProvider/AuthProviderContext";
 import TeacherNavbar from "./TeacherNavbar";
 import StudentNavbar from "./StudentNavbar";
@@ -40,7 +40,7 @@ export default function Navber({ href }) {
     },
   ];
 
-  if (loading) return <LoadinSpinner />;
+  if ( loading) return <LoadinSpinner />;
   if (errors) return <Custom500 />;
 
   if (user && user?.role === "Teacher") {

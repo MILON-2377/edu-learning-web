@@ -1,34 +1,30 @@
-const express = require("express");
-require("dotenv").config();
-const app = express();
-const cors = require("cors");
-const port = process.env.PORT || 5000;
+const mongoose = require("mongoose");
 
-app.use(express.json());
-app.use(cors());
+async function connect(){
+  try {
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.emrwzgv.mongodb.net/?appName=Cluster0`;
+    console.log(process.env.NEXT_PUBLIC_DB_USER);
+    const uri = `mongodb+srv://${process.env.NEXT_PUBLIC_DB_USER}:${process.env.NEXT_PUBLIC_DB_PASS}@cluster0.sdpuocy.mongodb.net/`;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  },
-});
+ 
 
-async function run(){
-    try {
-        
-    } catch (error) {
-        console.log(error);
-    }
+    await mongoose.connect(uri);
+
+    const connection = mongoose.connection;
+  
+    connection.on("connected", () => {
+      console.log("mongodb connected successfully");
+    });
+  
+    connection.on("error", (err) => {
+      console.log("mongodb connection error, please make sure MOngodb is running", err);
+      process.exit(1);
+    })
+  } catch (error) {
+    console.log("someting went wrong");
+    console.log(error);
+  }
+
 }
 
-run().catch(console.dir);
-
-app.listen(port, () => {
-    console.log("server is runnign on port", port);
-})
+export default connect;

@@ -8,7 +8,7 @@ import { IoMenu } from "react-icons/io5";
 
 export default function StudentNavbar() {
   const router = usePathname();
-  const { user } = useAuth();
+  const { user, logOutHandle } = useAuth();
   // user navliks
   const studentsUser = [
     {
@@ -123,7 +123,6 @@ export default function StudentNavbar() {
       <div className="navbar-end">
         {user ? (
           <>
-            {" "}
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
@@ -139,18 +138,15 @@ export default function StudentNavbar() {
               </div>
               <ul
                 tabIndex={0}
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+                className="menu menu-sm dropdown-content flex flex-col gap-1  bg-slate-200 rounded-box z-[1] mt-3 w-[280px] p-4 shadow"
               >
-                <li>
-                  <a className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </a>
+                <li className=" px-2 py-1 border border-yellow-500 text-black hover:text-white rounded-md hover:bg-blue-800 duration-300 ">
+                  <a className="justify-between">Profile</a>
                 </li>
-                <li>
-                  <a>Settings</a>
-                </li>
-                <li>
+                <li
+                  onClick={() => logOutHandle()}
+                  className=" px-2 py-1 border border-yellow-500 text-black hover:text-white rounded-md hover:bg-blue-800 duration-300 "
+                >
                   <a>Logout</a>
                 </li>
               </ul>

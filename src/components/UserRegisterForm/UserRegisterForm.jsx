@@ -10,6 +10,7 @@ import usePublicAxios from "../Hooks/Apis/PublicApi/usePublicAxios";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/AuthProvider/AuthProviderContext";
+import axios from "axios";
 
 export default function UserRegisterForm({ userData, userDataDi, profession }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -43,7 +44,11 @@ export default function UserRegisterForm({ userData, userDataDi, profession }) {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = ({ email, password, Name }) => {
+  const onSubmit = async({ email, password, Name }) => {
+
+    const res = await axios.post("/api/users", {userName:Name, email, profession, isAdmin:false});
+    console.log(res.data);
+
     userRegistation(email, password)
       .then(async () => {
         try {
